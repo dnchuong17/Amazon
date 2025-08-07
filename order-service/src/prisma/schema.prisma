@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model orders {
+  order_id     Int        @id @default(autoincrement())
+  product_id   Int?
+  user_id      Int?
+  created_date DateTime?  @default(now()) @db.Timestamp(6)
+  products     products?  @relation(fields: [product_id], references: [product_id], onDelete: Cascade, onUpdate: NoAction)
+  users        users?     @relation(fields: [user_id], references: [user_id], onDelete: Cascade, onUpdate: NoAction)
+  shipping     shipping[]
+}
+
+model products {
+  product_id  Int        @id @default(autoincrement())
+  name        String     @db.VarChar(255)
+  price       Float
+  image       String?
+  description String?
+  attributes  Json?
+  orders      orders[]
+  shipping    shipping[]
+}
+
+model shipping {
+  shipping_id Int       @id @default(autoincrement())
+  product_id  Int?
+  order_id    Int?
+  first_name  String    @db.VarChar(100)
+  last_name   String    @db.VarChar(100)
+  street      String?   @db.VarChar(255)
+  phone       String?   @db.VarChar(20)
+  email       String    @db.VarChar(25)
+  city        String?   @db.VarChar(100)
+  gender      String?   @db.VarChar(10)
+  orders      orders?   @relation(fields: [order_id], references: [order_id], onDelete: Cascade, onUpdate: NoAction)
+  products    products? @relation(fields: [product_id], references: [product_id], onUpdate: NoAction)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  user_id    Int      @id @default(autoincrement())
+  first_name String   @db.VarChar(100)
+  last_name  String   @db.VarChar(100)
+  email      String   @db.VarChar(100)
+  age        Int?
+  phone      String?  @db.VarChar(20)
+  orders     orders[]
+}

@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model orders {
@@ -49,6 +50,7 @@ model users {
   first_name String   @db.VarChar(100)
   last_name  String   @db.VarChar(100)
   email      String   @db.VarChar(100)
+  password   String   @db.VarChar(100)
   age        Int?
   phone      String?  @db.VarChar(20)
   orders     orders[]

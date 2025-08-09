@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Body, Patch, Param, Delete, Query} from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 import { ProductServiceService } from './product_service.service';
 
 @Controller('products')
@@ -11,11 +11,11 @@ export class ProductServiceController {
 
   @Get('/search_product')
   searchProduct(@Query('name') payload: string) {
-    return this.productServiceService.searchProduct(payload)
+    return this.productServiceService.searchProduct(payload);
   }
 
   @Get('/:id')
-  getProduct(@Param('id') payload:number) {
-    return this.productServiceService.getProduct(payload)
+  getProduct(@Param('id') payload: number) {
+    return this.productServiceService.getProduct(payload);
   }
 }

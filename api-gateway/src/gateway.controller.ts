@@ -1,6 +1,4 @@
-import {Controller, Get, Param} from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 
 @Controller()
-export class GatewayController {
-
-}
+export class GatewayController {}

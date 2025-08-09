@@ -49,6 +49,7 @@ model users {
   first_name String   @db.VarChar(100)
   last_name  String   @db.VarChar(100)
   email      String   @db.VarChar(100)
+  password   String   @db.VarChar(100)
   age        Int?
   phone      String?  @db.VarChar(20)
   orders     orders[]
